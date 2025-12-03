@@ -1,0 +1,51 @@
+{
+  "Key": "DR1762245941439",
+  "Name": "Profile_DataVeracity_Example",
+  "Type": "Data Veracity Profile",
+  "Version": 1,
+  "Folder": "Data_Veracity_Example",
+  "Owner": "mzadmin",
+  "Is Valid": true,
+  "Access Groups -read -write -execute": [
+    "Administrator",
+    "Administrator",
+    "Administrator"
+  ],
+  "Data": {
+    "DATABASE": {
+      "folder": "Data_Veracity_Example",
+      "key": "DR1762226495932",
+      "name": "Profile_DB_DataVeracity",
+      "type": "Database Profile",
+      "$Version": 1.0
+    },
+    "UDR Types": [
+      {
+        "TypeName": "Data_Veracity_Example.DataVeracity_UFDL_Dec.myInternal",
+        "FormatName": "Data_Veracity_Example.DataVeracity_UFDL_Dec",
+        "$Type": "dr.UltraClientInfo",
+        "$Version": 1.0
+      }
+    ],
+    "DB String": "Postgres",
+    "UDR Enabled": true,
+    "UDR Table Names": [
+      "dv_data_veracity_example_dataveracity_ufdl_dec_myinternal"
+    ],
+    "UDR Checked MIM entries": [
+      "starttime"
+    ],
+    "UDR Use MIM": true,
+    "Batch Enabled": false,
+    "Batch Table Name": "",
+    "Batch Use MIM": false,
+    "Batch Checked MIM entires": [],
+    "$Type": "com.digitalroute.dataveracity.config.DataVeracityProfileData",
+    "$Version": 1.0
+  },
+  "documentation": "",
+  "Is Dry Run": false,
+  "$Type": "dr.Configuration",
+  "$Version": 10.1,
+  "Comment": ""
+}

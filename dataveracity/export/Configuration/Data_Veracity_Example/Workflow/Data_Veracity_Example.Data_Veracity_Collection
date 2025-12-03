@@ -1,0 +1,422 @@
+{
+  "Key": "DR1763345155530",
+  "Name": "Data_Veracity_Collection",
+  "Type": "Workflow",
+  "Version": 3,
+  "Folder": "Data_Veracity_Example",
+  "Owner": "mzadmin",
+  "Is Valid": true,
+  "Access Groups -read -write -execute": [
+    "Administrator",
+    "Administrator",
+    "Administrator"
+  ],
+  "Auxiliary Data": {
+    "Entries": [
+      {
+        "Key": "Type",
+        "Value": "Batch"
+      },
+      {
+        "Key": "Standalone",
+        "Value": "false"
+      },
+      {
+        "Key": "Count",
+        "Value": "1"
+      },
+      {
+        "Key": "Autostart",
+        "Value": "false"
+      },
+      {
+        "Key": "DynamicConfig",
+        "Value": "false"
+      },
+      {
+        "Key": "BatchScalable",
+        "Value": "false"
+      }
+    ],
+    "$Version": 2.0
+  },
+  "Data": {
+    "auditLogOnCancelBatch": false,
+    "cancelBatchType": "Abort immediately",
+    "consecutiveCount": 0,
+    "dynamicInstances": false,
+    "errorMimNames": [],
+    "fieldTypes": [],
+    "instances": [
+      {
+        "cellValues": [],
+        "instanceId": 1,
+        "instanceName": "workflow_1",
+        "validType": "Valid",
+        "$Version": 1.0
+      }
+    ],
+    "isErrorBatchTypeECS": false,
+    "nodes": [
+      {
+        "Name": "Analysis",
+        "ID": -4,
+        "Classname": "com.digitalroute.wfc.analysis.StuffyMapperInsp",
+        "Configuration": [
+          {
+            "Type": 1,
+            "Classname": "com.digitalroute.wfc.analysis.StuffyMapperInsp",
+            "Data": {
+              "sourceCode": "import ultra.Data_Veracity_Example.DataVeracity_UFDL_Dec;
+
+consume {
+    // If UDR of type partial: route on route \"OK\"
+    myInternal in = (myInternal) input.errorUDR;
+    
+    if (in.causeForOutput == 1){
+        udrRoute(in,\"OK\");
+    }
+    else{
+        // Remove the previous error code associations of the UDR
+        udrClearErrors(in);
+        // Associate UDR with new error code
+        udrAddError(in,\"myErrorCodeUDR_2\",\"Cause for output: \" + in.causeForOutput);
+        // Route UDR to Data Veracity
+        udrRoute(in,\"To_DV\");
+    }          
+}",
+              "udrTypes": [
+                {
+                  "typeName": "DataVeracity.UDRType",
+                  "$Version": 1.0
+                }
+              ],
+              "$Type": "dr.StuffyMapperData",
+              "$Version": 10.0
+            },
+            "$Version": 1.0
+          },
+          {
+            "Type": 0,
+            "Classname": "com.digitalroute.devkit.hidden.DRThreadBufferInsp",
+            "Data": {
+              "printStats": false,
+              "useOwnThread": false,
+              "$Type": "dr.DRThreadBufferConfig",
+              "$Version": 10.0
+            },
+            "$Version": 1.0
+          }
+        ],
+        "XYposition": {
+          "x": 210,
+          "y": 110,
+          "$Version": 1.0
+        },
+        "$Version": 2.0
+      },
+      {
+        "Name": "Encoder",
+        "ID": -5,
+        "Classname": "com.digitalroute.wfc.ultra.UltraEncoderInsp",
+        "Configuration": [
+          {
+            "Type": 1,
+            "Classname": "com.digitalroute.wfc.ultra.UltraEncoderInsp",
+            "Data": {
+              "encoderName": "Data_Veracity_Example.DataVeracity_UFDL_Enc.myEncoder",
+              "skipEncoding": false,
+              "$Type": "dr.UltraEncoderData",
+              "$Version": 12.0
+            },
+            "$Version": 1.0
+          },
+          {
+            "Type": 0,
+            "Classname": "com.digitalroute.devkit.hidden.DRHeaderServiceInsp",
+            "Data": {
+              "entries": [],
+              "suppress": false,
+              "$Type": "dr.HeaderTrailerConfig",
+              "$Version": 10.0
+            },
+            "$Version": 1.0
+          },
+          {
+            "Type": 0,
+            "Classname": "com.digitalroute.devkit.hidden.DRTrailerServiceInsp",
+            "Data": {
+              "entries": [],
+              "suppress": false,
+              "$Type": "dr.HeaderTrailerConfig",
+              "$Version": 10.0
+            },
+            "$Version": 1.0
+          },
+          {
+            "Type": 0,
+            "Classname": "com.digitalroute.devkit.hidden.DRThreadBufferInsp",
+            "Data": {
+              "printStats": false,
+              "useOwnThread": false,
+              "$Type": "dr.DRThreadBufferConfig",
+              "$Version": 10.0
+            },
+            "$Version": 1.0
+          }
+        ],
+        "XYposition": {
+          "x": 320,
+          "y": 110,
+          "$Version": 1.0
+        },
+        "$Version": 2.0
+      },
+      {
+        "Name": "Disk_out",
+        "ID": -6,
+        "Classname": "com.digitalroute.wfc.diskoutput.DiskOutputInsp",
+        "Configuration": [
+          {
+            "Type": 1,
+            "Classname": "com.digitalroute.wfc.diskoutput.DiskOutputInsp",
+            "Data": {
+              "arguments": "",
+              "command": "",
+              "compType": "No Compression",
+              "createEmpty": false,
+              "createNonExistingBaseDir": false,
+              "directory": "/opt/out",
+              "inputType": "ByteArray",
+              "$Type": "dr.DiskOutputData",
+              "$Version": 13.0
+            },
+            "$Version": 1.0
+          },
+          {
+            "Type": 0,
+            "Classname": "com.digitalroute.devkit.wf.DRFNTServiceInsp",
+            "Data": {
+              "createNonExistDirectories": true,
+              "entries": [
+                {
+                  "Mim entry": "Workflow.Workflow Name",
+                  "Size": -1,
+                  "Alignment": 1,
+                  "Trailing separator": "_",
+                  "Delimiter": false,
+                  "$Version": 3.0
+                },
+                {
+                  "Mim entry": "Workflow.Batch Count",
+                  "Size": -1,
+                  "Alignment": 1,
+                  "Trailing separator": "_",
+                  "Delimiter": false,
+                  "$Version": 3.0
+                },
+                {
+                  "User entry": "REPROCESSED",
+                  "Size": -1,
+                  "Alignment": 1,
+                  "Delimiter": false,
+                  "$Version": 3.0
+                }
+              ],
+              "fNTListEnabled": true,
+              "$Type": "dr.DRFNTServiceConfig",
+              "$Version": 11.0
+            },
+            "$Version": 1.0
+          }
+        ],
+        "XYposition": {
+          "x": 410,
+          "y": 110,
+          "$Version": 1.0
+        },
+        "$Version": 2.0
+      },
+      {
+        "Name": "Data_Veracity_In",
+        "ID": 1577798907,
+        "Classname": "com.digitalroute.mz.dataveracity.agent.DataVeracityCollectorInsp",
+        "Configuration": [
+          {
+            "Type": 1,
+            "Classname": "com.digitalroute.mz.dataveracity.agent.DataVeracityCollectorInsp",
+            "Data": {
+              "batchSelectorObject": [],
+              "collectionSize": 5000,
+              "isBatchType": false,
+              "isUDRType": true,
+              "profile": {
+                "folder": "Data_Veracity_Example",
+                "key": "DR1762245941439",
+                "name": "Profile_DataVeracity_Example",
+                "type": "Data Veracity Profile",
+                "$Version": 1.0
+              },
+              "readOnly": false,
+              "sqlBulkSize": 1000,
+              "state": "NEW or UPDATED",
+              "udrSelectorObject": [
+                {
+                  "UDR_TYPE": "Data_Veracity_Example.DataVeracity_UFDL_Dec.myInternal",
+                  "COLL_TYPE": "Error Code",
+                  "COLL_VALUE": "myErrorCodeUDR",
+                  "$Version": 1.2
+                }
+              ],
+              "$Type": "dr.dataVeracityCollectorData",
+              "$Version": 10.0
+            },
+            "$Version": 1.0
+          }
+        ],
+        "XYposition": {
+          "x": 93,
+          "y": 110,
+          "$Version": 1.0
+        },
+        "$Version": 2.0
+      },
+      {
+        "Name": "Data_Veracity_Out",
+        "ID": 1569218632,
+        "Classname": "com.digitalroute.mz.dataveracity.agent.DataVeracityForwarderInsp",
+        "Configuration": [
+          {
+            "Type": 1,
+            "Classname": "com.digitalroute.mz.dataveracity.agent.DataVeracityForwarderInsp",
+            "Data": {
+              "mimMap": [
+                {
+                  "Name": "starttime",
+                  "Value": "Workflow.Batch Start Time",
+                  "$Version": 1.0
+                }
+              ],
+              "noOfRowsPerCommit": 500,
+              "profile": {
+                "folder": "Data_Veracity_Example",
+                "key": "DR1762245941439",
+                "name": "Profile_DataVeracity_Example",
+                "type": "Data Veracity Profile",
+                "$Version": 1.0
+              },
+              "$Type": "dr.dataVeracityForwarderData",
+              "$Version": 10.0
+            },
+            "$Version": 1.0
+          },
+          {
+            "Type": 0,
+            "Classname": "com.digitalroute.devkit.hidden.DRThreadBufferInsp",
+            "Data": {
+              "printStats": false,
+              "useOwnThread": false,
+              "$Type": "dr.DRThreadBufferConfig",
+              "$Version": 10.0
+            },
+            "$Version": 1.0
+          }
+        ],
+        "XYposition": {
+          "x": 327,
+          "y": 212,
+          "$Version": 1.0
+        },
+        "$Version": 2.0
+      }
+    ],
+    "routes": [
+      {
+        "destinationId": -5,
+        "id": -4,
+        "name": "OK",
+        "realtimeMode": "Not set",
+        "routeStyle": "Straight",
+        "sourceId": -4,
+        "stroke": [
+          {
+            "x": 293,
+            "y": 135,
+            "$Version": 1.0
+          }
+        ],
+        "$Version": 1.0
+      },
+      {
+        "destinationId": -6,
+        "id": -5,
+        "name": "out",
+        "realtimeMode": "Not set",
+        "routeStyle": "Straight",
+        "sourceId": -5,
+        "stroke": [
+          {
+            "x": 365,
+            "y": 110,
+            "$Version": 1.0
+          }
+        ],
+        "$Version": 1.0
+      },
+      {
+        "destinationId": -4,
+        "id": 8508481,
+        "name": "Re-Validate",
+        "realtimeMode": "Not set",
+        "routeStyle": "Straight",
+        "sourceId": 1577798907,
+        "stroke": [
+          {
+            "x": 152,
+            "y": 110,
+            "$Version": 1.0
+          }
+        ],
+        "$Version": 1.0
+      },
+      {
+        "destinationId": 1569218632,
+        "id": 989152,
+        "name": "To_DV",
+        "realtimeMode": "Not set",
+        "routeStyle": "Straight",
+        "sourceId": -4,
+        "stroke": [
+          {
+            "x": 269,
+            "y": 161,
+            "$Version": 1.0
+          }
+        ],
+        "$Version": 1.0
+      }
+    ],
+    "services": [],
+    "templateValid": true,
+    "wfExecutionConfig": {
+      "debugType": "Event",
+      "executionSettings": {
+        "distributionType": "Round Robin",
+        "enabled": false,
+        "executionGroups": [],
+        "$Version": 1.0
+      },
+      "noOfFilesToKeep": 0,
+      "txnHandler": "Default Handler",
+      "$Version": 10.0
+    },
+    "wfIdCounter": 1,
+    "$Type": "dr.WorkflowBatchData",
+    "$Version": 1.0
+  },
+  "documentation": "",
+  "Is Dry Run": false,
+  "$Type": "dr.Configuration",
+  "$Version": 10.1,
+  "Comment": ""
+}

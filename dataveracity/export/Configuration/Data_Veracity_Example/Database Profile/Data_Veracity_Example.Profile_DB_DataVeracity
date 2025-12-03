@@ -1,0 +1,34 @@
+{
+  "Key": "DR1762226495932",
+  "Name": "Profile_DB_DataVeracity",
+  "Type": "Database Profile",
+  "Version": 1,
+  "Folder": "Data_Veracity_Example",
+  "Owner": "mzadmin",
+  "Is Valid": true,
+  "Access Groups -read -write -execute": [
+    "Administrator",
+    "Administrator",
+    "Administrator"
+  ],
+  "Data": {
+    "accessKeyID": "DR-4-017BB0B8FB061C1876D43DD75468AA40",
+    "advancedProperties": "",
+    "dbDriverClassName": "com.digitalroute.wfc.db.postgresql.PostgreSQLDatabaseDriver",
+    "dbName": "dataveracity",
+    "genericConnection": false,
+    "hostName": "localhost",
+    "password": "DR-4-245AF72FB14AF932483EFCA793FF9923",
+    "port": 5432,
+    "secretAccessKey": "DR-4-017BB0B8FB061C1876D43DD75468AA40",
+    "type": 7,
+    "userName": "dvuser",
+    "$Type": "dr.DRDBProfileExtRef",
+    "$Version": 1.0
+  },
+  "documentation": "",
+  "Is Dry Run": false,
+  "$Type": "dr.Configuration",
+  "$Version": 10.1,
+  "Comment": ""
+}

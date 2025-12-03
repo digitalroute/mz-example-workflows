@@ -1,0 +1,9 @@
+{
+  "ErrorCode": "myErrorCodeUDR",
+  "Description": "C06E02",
+  "IsSystemDefined": false,
+  "RepGroupName": "udrReProGroup",
+  "RepGroupId": 91972,
+  "$Type": "dr.DVErrorCode",
+  "$Version": 1.1
+}

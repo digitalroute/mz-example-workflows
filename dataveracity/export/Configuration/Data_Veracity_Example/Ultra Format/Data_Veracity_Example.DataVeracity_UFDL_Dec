@@ -1,0 +1,48 @@
+{
+  "Key": "DR1762245800888",
+  "Name": "DataVeracity_UFDL_Dec",
+  "Type": "Ultra Format",
+  "Version": 2,
+  "Folder": "Data_Veracity_Example",
+  "Owner": "mzadmin",
+  "Is Valid": true,
+  "Access Groups -read -write -execute": [
+    "Administrator",
+    "Administrator",
+    "Administrator"
+  ],
+  "Data": {
+    "Definition": "external myExternalIn {
+    ascii callId            : terminated_by( \":\" );
+    ascii seqNum            : terminated_by( \",\" );
+    ascii aNum              : terminated_by( \",\" );
+    ascii bNum              : terminated_by( \",\" );
+    ascii causeForOutput    : terminated_by( \",\" );
+    ascii duration          : terminated_by( 0xA );
+};
+
+internal myInternal {
+    string callId;
+    long   seqNum;
+    string aNum;
+    string bNum;
+    int    causeForOutput;
+    int    duration;
+};
+
+
+in_map myInMap : external( myExternalIn ), internal( myInternal ) {
+    automatic;
+};
+
+decoder myDecoder : in_map( myInMap );
+",
+    "$Type": "dr.UltraFormatConfig",
+    "$Version": 2.0
+  },
+  "documentation": "",
+  "Is Dry Run": false,
+  "$Type": "dr.Configuration",
+  "$Version": 10.1,
+  "Comment": ""
+}

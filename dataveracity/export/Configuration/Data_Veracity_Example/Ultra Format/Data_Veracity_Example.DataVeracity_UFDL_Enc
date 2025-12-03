@@ -1,0 +1,42 @@
+{
+  "Key": "DR1762245810492",
+  "Name": "DataVeracity_UFDL_Enc",
+  "Type": "Ultra Format",
+  "Version": 2,
+  "Folder": "Data_Veracity_Example",
+  "Owner": "mzadmin",
+  "Is Valid": true,
+  "Access Groups -read -write -execute": [
+    "Administrator",
+    "Administrator",
+    "Administrator"
+  ],
+  "Data": {
+    "Definition": "//Import ultra in order to access myInternal
+import Data_Veracity_Example.DataVeracity_UFDL_Dec;
+
+//External block describing the physical structure of the requested outgoing format
+external myExternalOut {
+    ascii callId            : terminated_by( \"|\" );
+    ascii seqNum            : terminated_by( \"|\" );
+    ascii aNum              : terminated_by( \"|\" );
+    ascii bNum              : terminated_by( \"|\" );
+    ascii causeForOutput    : terminated_by( \"|\" );
+    ascii duration          : terminated_by( 0xA );
+};
+
+//Map the internal created in C04E01_UFDL_Dec to the external (outgoing format) 
+out_map myOutMap : internal( myInternal ), external( myExternalOut ) { 
+    automatic;
+};
+//Select which out_map(s) the Encoder shall accept
+encoder myEncoder : out_map( myOutMap );",
+    "$Type": "dr.UltraFormatConfig",
+    "$Version": 2.0
+  },
+  "documentation": "",
+  "Is Dry Run": false,
+  "$Type": "dr.Configuration",
+  "$Version": 10.1,
+  "Comment": ""
+}
